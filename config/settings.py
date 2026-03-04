@@ -25,7 +25,9 @@ SECRET_KEY = 'django-insecure-9p$-ca3uwr7=rs+dvy!2%r8g1)qyn&rvl2r4-i+kh!y^d2-^3!
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'healthtracker-production-0866.up.railway.app',
+]
 
 
 # Application definition
