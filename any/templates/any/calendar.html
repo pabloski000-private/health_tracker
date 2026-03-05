@@ -77,7 +77,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-    <script>
+    <script type="module">
     let weightChart = null;
 
     async function renderWeightChart() {
@@ -116,11 +116,11 @@
 
     // If you already save weights from the calendar modal,
     // call this after successful save:
-    asyncio.run(renderWeightChart());
+    await renderWeightChart();
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.18/index.global.min.js"></script>
-    <script>
+    <script type="module">
       // Django CSRF helper
       function getCookie(name) {
         const value = `; ${document.cookie}`;
@@ -197,7 +197,7 @@
 
           closeModal();
           cal.refetchEvents();
-          asyncio.run(renderWeightChart());
+          await renderWeightChart();
         });
       });
     </script>
