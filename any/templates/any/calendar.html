@@ -77,50 +77,49 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-    <script type="module">
-    let weightChart = null;
-
-    async function renderWeightChart() {
-        const res = await fetch("/api/weights/series/");
-        if (!res.ok) return;
-
-        const { labels, data } = await res.json();
-        const ctx = document.getElementById("weightChart");
-
-        if (weightChart) weightChart.destroy();
-
-        weightChart = new Chart(ctx, {
-        type: "line",
-        data: {
-            labels,
-            datasets: [{
-            label: "Weight (kg)",
-            data,
-            tension: 0.25,
-            pointRadius: 3,
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            interaction: { mode: "index", intersect: false },
-            scales: {
-            x: { ticks: { maxRotation: 0, autoSkip: true } },
-            y: { beginAtZero: false }
-            }
-        }
-        });
-    }
-
-    document.addEventListener("DOMContentLoaded", renderWeightChart);
-
-    // If you already save weights from the calendar modal,
-    // call this after successful save:
-    await renderWeightChart();
-    </script>
 
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.18/index.global.min.js"></script>
     <script type="module">
+      let weightChart = null;
+
+      async function renderWeightChart() {
+          const res = await fetch("/api/weights/series/");
+          if (!res.ok) return;
+
+          const { labels, data } = await res.json();
+          const ctx = document.getElementById("weightChart");
+
+          if (weightChart) weightChart.destroy();
+
+          weightChart = new Chart(ctx, {
+          type: "line",
+          data: {
+              labels,
+              datasets: [{
+              label: "Weight (kg)",
+              data,
+              tension: 0.25,
+              pointRadius: 3,
+              }]
+          },
+          options: {
+              responsive: true,
+              maintainAspectRatio: false,
+              interaction: { mode: "index", intersect: false },
+              scales: {
+              x: { ticks: { maxRotation: 0, autoSkip: true } },
+              y: { beginAtZero: false }
+              }
+          }
+          });
+      }
+
+      document.addEventListener("DOMContentLoaded", renderWeightChart);
+
+      // If you already save weights from the calendar modal,
+      // call this after successful save:
+      // await renderWeightChart();
+
       // Django CSRF helper
       function getCookie(name) {
         const value = `; ${document.cookie}`;
