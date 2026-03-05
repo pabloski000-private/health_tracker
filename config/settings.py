@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'healthtracker-production-0866.up.railway.app',
+    '127.0.0.1',
 ]
 
 
