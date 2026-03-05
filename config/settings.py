@@ -43,6 +43,10 @@ INSTALLED_APPS = [
     'any',
 ]
 
+CSRF_TRUSTED_ORIGINS = [
+    "https://healthtracker-production-0866.up.railway.app",
+]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -52,6 +56,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 
 ROOT_URLCONF = 'config.urls'
 
