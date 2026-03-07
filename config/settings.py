@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'any',
     'accounts',
+    'home',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
