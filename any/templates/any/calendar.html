@@ -83,7 +83,7 @@
       let weightChart = null;
 
       async function renderWeightChart() {
-          const res = await fetch("/api/weights/series/");
+          const res = await fetch("api/weights/series/");
           if (!res.ok) return;
 
           const { labels, data } = await res.json();
@@ -159,7 +159,7 @@
           headerToolbar: { left: "prev,next", center: "title", right: "dayGridMonth,timeGridWeek" },
 
           // Load saved weights
-          events: "/api/weights/",
+          events: "api/weights/",
 
           // Tap a day (mobile-friendly)
           dateClick: function(info) {
@@ -179,7 +179,7 @@
             return;
           }
 
-          const res = await fetch("/api/weights/add/", {
+          const res = await fetch("api/weights/add/", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
