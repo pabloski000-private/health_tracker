@@ -9,27 +9,20 @@ from django.utils.dateparse import parse_date
 from .models import WeightEntry
 
 # Create your views here.
-def get_client_id(request) -> str:
-    # Requires Django sessions middleware (default in new projects)
-    cid = request.session.get("client_id")
-    if not cid:
-        cid = secrets.token_hex(16)  # 32 hex chars
-        request.session["client_id"] = cid
-    return cid
-
+@login_required
 def calendar_view(request):
     return render(request, "any/calendar.html")
 
+@login_required
 def weights_json(request):
-    cid = get_client_id(request)
-    entries = WeightEntry.objects.filter(client_id=cid).order_by("date")
+    entries = WeightEntry.objects.filter(user=request.user).order_by("date")
     events = [
         {"title": f"{e.weight} kg", "start": e.date.isoformat(), "allDay": True}
         for e in entries
     ]
     return JsonResponse(events, safe=False)
 
-
+@login_required
 def add_weight(request):
     if request.method != "POST":
         return HttpResponseBadRequest("POST required")
@@ -44,17 +37,16 @@ def add_weight(request):
     if not d or w is None:
         return HttpResponseBadRequest("Missing date/weight")
 
-    cid = get_client_id(request)
     WeightEntry.objects.update_or_create(
-        client_id=cid,
+        user=request.user,
         date=d,
         defaults={"weight": w},
     )
     return JsonResponse({"ok": True})
 
+@login_required
 def weights_series(request):
-    cid = get_client_id(request)  # the same session-based function you already use
-    qs = WeightEntry.objects.filter(client_id=cid).order_by("date").values("date", "weight")
+    qs = WeightEntry.objects.filter(user=request.user).order_by("date").values("date", "weight")
 
     labels = [row["date"].isoformat() for row in qs]
     data = [float(row["weight"]) for row in qs]
