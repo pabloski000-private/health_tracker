@@ -9,6 +9,8 @@ from django.utils.dateparse import parse_date
 from .models import WeightEntry
 
 # Create your views here.
+def authentication_view(request):
+    return render(request, "registration/authentication.html")
 @login_required
 def calendar_view(request):
     return render(request, "any/calendar.html")
